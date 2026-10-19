@@ -283,6 +283,12 @@ export const App: React.FC = () => {
     setIsConfirmOrderOpen(true);
   };
 
+  // 命令しないで手番を終了する
+  const handleSkipOrder = () => {
+    if (!gameState) return;
+    advanceTurn(gameState);
+  };
+
   // 命令確定・送信（報酬コイン予約）
   const handleConfirmOrder = () => {
     if (!gameState || !pendingOrder) return;
@@ -791,6 +797,7 @@ export const App: React.FC = () => {
                   currentPlayer={currentTurnPlayer}
                   allPlayers={gameState.players}
                   onOrderPrepared={handleOrderPrepared}
+                  onSkipOrder={handleSkipOrder}
                   selectedCoord={orderSelectedCoord}
                   onSelectCoord={setOrderSelectedCoord}
                 />

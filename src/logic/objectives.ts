@@ -61,8 +61,8 @@ export const OBJECTIVE_DEFINITIONS: ObjectiveDefinition[] = [
     id: 5,
     name: '誘導の達人',
     category: 'board',
-    points: 5,
-    description: '命令成功により自分の駒が合計3マス以上移動している。',
+    points: 3,
+    description: '自分が出した命令が成功し、自分の駒が累計3マス以上移動している。',
     maxProgress: 3,
   },
   {

@@ -142,10 +142,9 @@ export function processOrderSuccess(
       ...stats.coinsReceivedAsReward,
       [order.targetPlayerId]: (stats.coinsReceivedAsReward[order.targetPlayerId] || 0) + order.reward,
     },
-    // 誘導の達人: 移動マス数を記録（命令者側と被命令者側の両方に加算してどちらの解釈にも完全適合可能にする）
+    // 誘導の達人: 自分が他プレイヤーに出した命令が成功し、自分の駒が移動したマス数を加算
     guidedDistance: {
       ...stats.guidedDistance,
-      [order.targetPlayerId]: (stats.guidedDistance[order.targetPlayerId] || 0) + movedSteps,
       [order.sourcePlayerId]: (stats.guidedDistance[order.sourcePlayerId] || 0) + movedSteps,
     },
   };

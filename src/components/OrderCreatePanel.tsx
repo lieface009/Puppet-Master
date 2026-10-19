@@ -21,6 +21,7 @@ import {
   Coins,
   Compass,
   Send,
+  SkipForward,
   Target,
   Users,
 } from 'lucide-react';
@@ -29,6 +30,7 @@ interface OrderCreatePanelProps {
   currentPlayer: Player;
   allPlayers: Player[];
   onOrderPrepared: (order: Order) => void;
+  onSkipOrder: () => void;
   selectedCoord: Coordinate | null;
   onSelectCoord: (coord: Coordinate | null) => void;
 }
@@ -37,9 +39,11 @@ export const OrderCreatePanel: React.FC<OrderCreatePanelProps> = ({
   currentPlayer,
   allPlayers,
   onOrderPrepared,
+  onSkipOrder,
   selectedCoord,
   onSelectCoord,
 }) => {
+  const [showSkipConfirm, setShowSkipConfirm] = useState(false);
   // 相手プレイヤー候補（自分以外）
   const otherPlayers = allPlayers.filter((p) => p.id !== currentPlayer.id);
 
@@ -419,6 +423,41 @@ export const OrderCreatePanel: React.FC<OrderCreatePanelProps> = ({
         <Send className="w-4 h-4" />
         命令内容を確認して送信
       </button>
+
+      {/* 命令しないボタン */}
+      <button
+        onClick={() => { soundManager.playClick(); setShowSkipConfirm(true); }}
+        className="w-full py-2.5 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-400 hover:text-slate-200 font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-md"
+      >
+        <SkipForward className="w-4 h-4" />
+        命令しないで手番を終了する
+      </button>
+
+      {/* スキップ確認ダイアログ */}
+      {showSkipConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 max-w-xs w-full text-center space-y-4 shadow-2xl">
+            <h3 className="font-bold text-base text-slate-100">命令しないで終了しますか？</h3>
+            <p className="text-xs text-slate-400">
+              コインの移動や駒の操作は行いません。このまま手番を終了します。
+            </p>
+            <div className="flex gap-2 pt-2">
+              <button
+                onClick={() => { soundManager.playClick(); setShowSkipConfirm(false); }}
+                className="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold"
+              >
+                戻る
+              </button>
+              <button
+                onClick={() => { soundManager.playClick(); setShowSkipConfirm(false); onSkipOrder(); }}
+                className="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold"
+              >
+                手番を終了する
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

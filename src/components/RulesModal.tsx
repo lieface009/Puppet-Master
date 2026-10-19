@@ -204,7 +204,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, onClose }) => {
                     <li>・<strong>ゴールキーパー(7点):</strong> ゲーム終了時にゴールEにいる。</li>
                     <li>・<strong>陣取り屋(5点):</strong> ゲーム終了時に開始時に指定されたエリアにいる。</li>
                     <li>・<strong>辺境の支配者(3点):</strong> 終了時に盤面外周にいる（開始マス＋隣接4マス除く）。</li>
-                    <li>・<strong>誘導の達人(5点):</strong> 他の命令を受諾・成功させ、操作したマス数が累計3マス以上。</li>
+                    <li>・<strong>誘導の達人(3点):</strong> 自分が出した命令が成功し、自分の駒が累計3マス以上移動。</li>
                     <li>・<strong>仲良しコンビ(5点):</strong> 終了時に指定された他プレイヤーの駒と上下左右隣接。</li>
                     <li>・<strong>遭遇マスター(7点):</strong> 他のすべてのプレイヤーと一度でも同じマスに重なる。</li>
                   </ul>
